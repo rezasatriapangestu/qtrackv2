@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://bitap.my.id/QTrack/';
+$config['base_url'] = 'https://bitap.my.id/qtrackv2/';
 
 /*
 |--------------------------------------------------------------------------

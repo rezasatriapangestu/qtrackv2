@@ -193,6 +193,24 @@ $(document).ready(function() {
             utterance.rate = 1; // Kecepatan bicara (1 = normal)
             utterance.pitch = 1; // Tinggi nada (1 = normal)
 
+            // Pilih suara wanita Indonesia jika tersedia
+            const voices = window.speechSynthesis.getVoices();
+            // Cari suara wanita bahasa Indonesia
+            const femaleIdVoices = voices.filter(v =>
+                v.lang === 'id-ID' && v.name.toLowerCase().includes('female')
+            );
+            if (femaleIdVoices.length > 0) {
+                utterance.voice = femaleIdVoices[0];
+            } else {
+                // fallback: cari suara id-ID apapun, prioritaskan yang bukan male
+                const idVoices = voices.filter(v => v.lang === 'id-ID');
+                if (idVoices.length > 0) {
+                    // Pilih suara yang bukan male jika ada
+                    const nonMale = idVoices.find(v => !v.name.toLowerCase().includes('male'));
+                    utterance.voice = nonMale || idVoices[0];
+                }
+            }
+
             // Event handler untuk saat pembicaraan selesai
             utterance.onend = function() {
                 isSpeaking = false;
