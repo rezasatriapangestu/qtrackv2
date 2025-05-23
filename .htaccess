@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /qtrackv1/
+
+# Jika file atau folder itu ada, biarkan Apache yang handle
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Kalau tidak, arahkan ke index.php
+RewriteRule ^(.*)$ index.php/$1 [L]
