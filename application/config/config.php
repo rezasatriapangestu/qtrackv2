@@ -138,7 +138,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FCPATH.'vendor/autoload.php';
+$config['composer_autoload'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -386,7 +386,7 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files'; // Pastikan driver session sesuai
 $config['sess_cookie_name'] = 'ci_session'; // Nama cookie session
 $config['sess_expiration'] = 7200; // Waktu kedaluwarsa session (dalam detik)
-$config['sess_save_path'] = APPPATH . 'sessions/'; // Path penyimpanan session (NULL untuk default)
+$config['sess_save_path'] = NULL; // Path penyimpanan session (NULL untuk default)
 $config['sess_match_ip'] = FALSE; // Cocokkan IP address (biasanya FALSE)
 $config['sess_time_to_update'] = 300; // Waktu update session (dalam detik)
 $config['sess_regenerate_destroy'] = FALSE; // Regenerate session ID (biasanya FALSE)
@@ -529,5 +529,3 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-
-$config['log_threshold'] = 2;

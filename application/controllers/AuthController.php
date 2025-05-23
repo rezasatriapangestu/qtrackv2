@@ -33,18 +33,18 @@ class AuthController extends CI_Controller {
                     $this->session->set_userdata('roles', $user->role);
                     $response = array(
                         'status'    => 'success',
-                        'message'   => 'Login berhasil. Selamat datang kembali!'
+                        'message'   => 'Login berhasil!'
                     );
                 } else {
                     $response = array(
                         'status'    => 'error',
-                        'message'   => 'Password yang Anda masukkan salah. Silakan coba lagi.'
+                        'message'   => 'Password salah.'
                     );
                 }
             }else{
                 $response = array(
                     'status'    => 'error',
-                    'message'   => 'Email tidak ditemukan. Silakan daftar terlebih dahulu.'
+                    'message'   => 'Email tidak terdaftar.'
                 );
             }
             echo json_encode($response);
@@ -67,7 +67,7 @@ class AuthController extends CI_Controller {
             if ($this->M_Model->is_email($email)) {
                 $response = array(
                     'status'    => 'error',
-                    'message'   => 'Email sudah terdaftar. Silakan gunakan email lain atau login.'
+                    'message'   => 'Email sudah terdaftar.'
                 );
             } else {
                 $id_user = $this->M_Model->generate_user_id();
@@ -82,26 +82,25 @@ class AuthController extends CI_Controller {
                     'password'      => password_hash($password, PASSWORD_BCRYPT),
                     'role'          => 'user',
                     'token'         => $token,
-                    'status'        => '0',
-                    'foto_profile'  => 'default.png'
+                    'status'        => '0'
                 );
     
                 if ($this->M_Model->register_user($data)) {
                     if ($this->kirim_email_konfirmasi($email, $token)) {
                         $response = array(
                             'status'    => 'success',
-                            'message'   => 'Registrasi berhasil! Silakan cek email Anda untuk verifikasi akun.'
+                            'message'   => 'Registrasi berhasil! Silakan cek email Anda untuk konfirmasi.'
                         );
                     } else {
                         $response = array(
                             'status'    => 'error',
-                            'message'   => 'Registrasi berhasil, namun gagal mengirim email verifikasi. Silakan hubungi admin.'
+                            'message'   => 'Registrasi berhasil, tetapi gagal mengirim email konfirmasi.'
                         );
                     }
                 } else {
                     $response = array(
                         'status'    => 'error',
-                        'message'   => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.'
+                        'message'   => 'Terjadi kesalahan saat menyimpan data.'
                     );
                 }
             }
@@ -139,8 +138,8 @@ class AuthController extends CI_Controller {
         // Isi email
         $message = "
             <h2>Terima kasih telah mendaftar!</h2>
-            <p>Ini adalah email otomatis untuk memberikan kode OTP yang diperlukan untuk mengaktifkan akun Anda.</p>
-            <p>Kode OTP Anda:</p>
+            <p>Ini adalah email otomatis yang dikirimkan kepada Anda untuk memberikan kode One-Time Password (OTP) yang diperlukan untuk mengakses akun Anda.</p>
+            <p>Kode OTP Anda adalah:</p>
             <b>".$token."</b>
         ";
     
@@ -164,37 +163,31 @@ class AuthController extends CI_Controller {
 
     public function proses_konfirmasi(){
         $token = $this->input->post('token');
-        $email = $this->input->post('email');
-        if (empty($token) || empty($email)) {
+        if (empty($token)) {
             $response = array(
                 'status'    => 'error',
-                'message'   => 'Email dan kode konfirmasi diperlukan.'
+                'message'   => 'Kode konfirmasi salah.'
             );
         } else {
             $user = $this->M_Model->get_user_by_token($token);
 
             if ($user) {
-                if ($user->email != $email) {
-                    $response = array(
-                        'status'    => 'error',
-                        'message'   => 'Kode konfirmasi tidak sesuai dengan email yang diberikan.'
-                    );
-                } else if ($user->status == '0') {
+                if ($user->status == '0') {
                     $this->M_Model->activate_user($user->id_user);
                     $response = array(
                         'status'    => 'success',
-                        'message'   => 'Akun Anda berhasil diaktifkan. Silakan login.'
+                        'message'   => 'Akun anda berhasil di aktifkan. Silahkan login..'
                     );
                 } else {
                     $response = array(
                         'status'    => 'info',
-                        'message'   => 'Akun Anda sudah aktif. Silakan login.'
+                        'message'   => 'Akun Anda sudah aktif sebelumnya. Silakan login.'
                     );
                 }
             } else {
                 $response = array(
                     'status'    => 'error',
-                    'message'   => 'Kode konfirmasi tidak valid atau sudah kadaluarsa.'
+                    'message'   => 'kode konfirmasi tidak valid atau sudah kadaluarsa.'
                 );
             }
         }
