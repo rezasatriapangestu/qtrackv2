@@ -1,7 +1,7 @@
 <?php
 // Database connection
 $servername = "localhost";
-$username = "bitapmyi_qtrackfest";
+$username = "bitapmyi_bitapfest";
 $password = "Wewokdetok123*";
 $dbname = "bitapmyi_qtrackfest";
 
