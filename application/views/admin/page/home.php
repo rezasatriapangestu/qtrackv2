@@ -1,9 +1,9 @@
 <?php
 // Database connection
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "bitapmyi_debeqtrack";
+$servername = "localhost";
+$username = "bitapmyi_qtrackfest";
+$password = "Wewokdetok123*";
+$dbname = "bitapmyi_qtrackfest";
 
 // Inisialisasi variabel agar tidak undefined jika koneksi gagal
 $totalAntrian = 0;
