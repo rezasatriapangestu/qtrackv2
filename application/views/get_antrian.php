@@ -126,7 +126,7 @@
             <div class="col-md-6 video-container">
                 <h2 class="text-white">Video Layanan</h2>
                 <video controls>
-                    <source src="path_to_your_video.mp4" type="video/mp4">
+                    <source src="https://youtu.be/MW-nTmYCXpE?si=63Ef9G8DZJwLNAWC" type="video/mp4">
                     Browser Anda tidak mendukung tag video.
                 </video>
             </div>
