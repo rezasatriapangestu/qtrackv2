@@ -125,10 +125,8 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 video-container">
                 <h2 class="text-white">Video Layanan</h2>
-                <video controls>
-                    <source src="https://youtu.be/MW-nTmYCXpE?si=63Ef9G8DZJwLNAWC" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/MW-nTmYCXpE" 
+    frameborder="0" allowfullscreen></iframe>
             </div>
 
             <div class="col-md-6">
