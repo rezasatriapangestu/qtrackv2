@@ -1,6 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// Tambahan: pastikan RestController sudah ter-load
+if (!class_exists('\chriskacerguis\RestServer\RestController')) {
+    // Coba require dari vendor jika pakai composer
+    if (file_exists(APPPATH . '../vendor/autoload.php')) {
+        require_once APPPATH . '../vendor/autoload.php';
+    }
+    // Jika tidak pakai composer, coba dari libraries
+    elseif (file_exists(APPPATH . 'libraries/RestController.php')) {
+        require_once APPPATH . 'libraries/RestController.php';
+    }
+}
+
 use chriskacerguis\RestServer\RestController;
 
 class User_Api extends RestController {

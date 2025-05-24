@@ -3,6 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 date_default_timezone_set('Asia/Jakarta');
 
+// Tambahan: pastikan RestController sudah ter-load
+if (!class_exists('\chriskacerguis\RestServer\RestController')) {
+    // Coba require dari vendor jika pakai composer
+    if (file_exists(APPPATH . '../vendor/autoload.php')) {
+        require_once APPPATH . '../vendor/autoload.php';
+    }
+    // Jika tidak pakai composer, coba dari libraries
+    elseif (file_exists(APPPATH . 'libraries/RestController.php')) {
+        require_once APPPATH . 'libraries/RestController.php';
+    }
+}
+
 use chriskacerguis\RestServer\RestController;
 
 class Queue_Api extends RestController {
@@ -114,7 +126,7 @@ class Queue_Api extends RestController {
             $this->response([
                 'status' => 'warning',
                 'message' => 'Harap lengkapi semua data.'
-            ], RESTController::HTTP_BAD_REQUEST);
+            ], RestController::HTTP_BAD_REQUEST);
             return;
         }
 
@@ -124,7 +136,7 @@ class Queue_Api extends RestController {
             $this->response([
                 'status'  => 'warning',
                 'message' => 'Anda sudah memiliki antrian aktif hari ini.'
-            ], RESTController::HTTP_OK);
+            ], RestController::HTTP_OK);
             return;
         }
 
@@ -133,7 +145,7 @@ class Queue_Api extends RestController {
             $this->response([
                 'status' => 'warning',
                 'message' => 'Slot booking tidak tersedia. Silakan pilih waktu lain.'
-            ], RESTController::HTTP_OK);
+            ], RestController::HTTP_OK);
             return;
         }
 
@@ -152,12 +164,12 @@ class Queue_Api extends RestController {
             $this->response([
                 'status'  => 'success',
                 'message' => 'Berhasil menyimpan data antrian.'
-            ], RESTController::HTTP_OK);
+            ], RestController::HTTP_OK);
         } else {
             $this->response([
                 'status'  => 'error',
                 'message' => 'Terjadi kesalahan saat menyimpan data.'
-            ], RESTController::HTTP_INTERNAL_SERVER_ERROR);
+            ], RestController::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
