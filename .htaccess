@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /qtrackv1/
+RewriteBase /qtrackv2/
 
 # Jika file atau folder itu ada, biarkan Apache yang handle
 RewriteCond %{REQUEST_FILENAME} !-f
